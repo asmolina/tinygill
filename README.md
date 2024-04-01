@@ -3,7 +3,7 @@
 
 ## Usage
 
-`Train&Generation.ipynb` for interactive work, `strain.sh` for submitting jobs to Slurm in batch mode.
+`Train&Generation.ipynb` for interactive work, `llm2clip-submit.sh` for submitting jobs to Slurm in batch mode.
 * `dataset.py` loads COCO captions dataset and Kandinsky2.2 CLIP-text encoder.
 * `param_count.py` contains auxilary functions for tracking trainable parameters.
 * `tiny_gill.py` TinyGILL model architecture.
