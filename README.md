@@ -9,3 +9,4 @@
 * `tiny_gill.py` TinyGILL model architecture.
 * `train.py` train loop for one epoch.
 * `generate.py` text2img generation with Kandinsky 2.2 and TinyGILL.
+* `sbatch_run.py` wrapper for Slurm sbatch mode.
