@@ -1,6 +1,19 @@
 import torch
 from torch import nn
 from typing import List
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+
+def prepare_lm_and_tokenizer(device='cuda', num_img_tokens=4):
+    lm = AutoModelForCausalLM.from_pretrained("TinyLlama/TinyLlama-1.1B-Chat-v1.0").half().to(device)
+    tokenizer = AutoTokenizer.from_pretrained("TinyLlama/TinyLlama-1.1B-Chat-v1.0", model_max_length=77)
+    
+    # Adding [IMG{i}] tokens to the vocabulary
+    tokenizer.add_tokens([f'[IMG{i}]' for i in range(1, num_img_tokens + 1)]) 
+    lm.resize_token_embeddings(len(tokenizer))
+    img_tokens_vocab_idx = [tokenizer(f'[IMG{i}]', add_special_tokens=False).input_ids[0] for i in range(1, num_img_tokens + 1)]
+    print(f'IMG tokens vocabulary indices: {img_tokens_vocab_idx }')
+    return lm, tokenizer, img_tokens_vocab_idx
 
 
 class TinyGILL(nn.Module):
